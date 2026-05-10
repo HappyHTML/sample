@@ -117,10 +117,8 @@ function initCanvas() {
 function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Smooth Cursor
-    cursorX += (mouseX - cursorX) * 0.2;
-    cursorY += (mouseY - cursorY) * 0.2;
-    cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+    // Direct 1:1 Cursor Position
+    cursor.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`;
 
     trailX += (mouseX - trailX) * 0.1;
     trailY += (mouseY - trailY) * 0.1;
