@@ -3,39 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sophisticated Theme Toggle</title>
+    <title>The Celestial Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-decor">
-        <div class="sphere"></div>
-        <div class="stars"></div>
+<body class="light-mode">
+    <div id="transition-overlay"></div>
+
+    <div class="background-layers">
+        <canvas id="nebula-canvas"></canvas>
+        <div class="aurora"></div>
+        <div class="parallax-stars"></div>
     </div>
 
-    <div class="card">
-        <div class="content">
-            <h1 id="mode-text">Light mode</h1>
-            <p class="status">CURRENTLY ACTIVE</p>
+    <main class="ui-overlay">
+        <div class="portal-card">
+            <header>
+                <h1 id="mode-text">SOLAR MODE</h1>
+                <div class="badge-container">
+                    <span class="active-badge">ACTIVE DIMENSION</span>
+                </div>
+            </header>
 
-            <div class="divider"></div>
-
-            <div class="toggle-container">
-                <span class="toggle-label">LIGHT</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="theme-checkbox">
-                    <span class="toggle-slider">
-                        <span class="icon sun-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-                        </span>
-                        <span class="icon moon-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                        </span>
-                    </span>
-                </label>
-                <span class="toggle-label">DARK</span>
+            <div class="spatial-divider">
+                <div class="line"></div>
+                <div class="orbit"></div>
+                <div class="line"></div>
             </div>
+
+            <div class="control-center">
+                <div class="toggle-wrapper">
+                    <span class="dimension-label">SOLAR</span>
+                    <button id="theme-portal" aria-label="Toggle Dimension">
+                        <div class="portal-disc">
+                            <div class="celestial-body sun"></div>
+                            <div class="celestial-body moon">
+                                <div class="crater c1"></div>
+                                <div class="crater c2"></div>
+                                <div class="crater c3"></div>
+                            </div>
+                        </div>
+                        <div class="portal-rings">
+                            <div class="ring r1"></div>
+                            <div class="ring r2"></div>
+                        </div>
+                    </button>
+                    <span class="dimension-label">LUNAR</span>
+                </div>
+            </div>
+
+            <footer>
+                <p class="coordinates">X: <span id="coord-x">0000</span> | Y: <span id="coord-y">0000</span></p>
+            </footer>
         </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
