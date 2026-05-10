@@ -1,92 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+
 :root {
-    --bg-color: #ffffff;
-    --text-color: #000000;
-    --toggle-bg: #ccc;
-    --toggle-circle: #ffffff;
+    --bg-color: #E6E2D3;
+    --card-bg: #F9F7F0;
+    --text-primary: #1A1A1A;
+    --text-secondary: #999999;
+    --divider-color: #EEEEEE;
+    --toggle-bg: #D1D1D1;
+    --toggle-handle: #FFFFFF;
+    --sphere-color: radial-gradient(circle, #FFE5B4 0%, #FFCC80 100%);
+    --sphere-opacity: 0.6;
+    --star-opacity: 0;
+
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
 }
 
 body.dark-mode {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --toggle-bg: #2196F3;
-    --toggle-circle: #ffffff;
+    --bg-color: #0A0A0A;
+    --card-bg: #1A1A1A;
+    --text-primary: #FFFFFF;
+    --text-secondary: #666666;
+    --divider-color: #2A2A2A;
+    --toggle-bg: #333333;
+    --toggle-handle: #444444;
+    --sphere-color: radial-gradient(circle, #2C3E50 0%, #000000 100%);
+    --sphere-opacity: 0.4;
+    --star-opacity: 1;
 }
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
 }
 
-.container {
+.background-decor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-20px, -20px); }
+    100% { transform: translate(0, 0); }
+}
+
+.sphere {
+    position: absolute;
+    top: 5%;
+    right: 15%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: var(--sphere-color);
+    opacity: var(--sphere-opacity);
+    filter: blur(60px);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: float 10s ease-in-out infinite;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: var(--star-opacity);
+    transition: opacity 1.5s ease;
+    background-image:
+        radial-gradient(1px 1px at 10% 10%, #fff, transparent),
+        radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 30% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 40% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 50% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 60% 20%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 70% 50%, #fff, transparent),
+        radial-gradient(1px 1px at 80% 90%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 10%, #fff, transparent),
+        radial-gradient(1px 1px at 15% 85%, #fff, transparent),
+        radial-gradient(1px 1px at 85% 15%, #fff, transparent);
+    background-size: 600px 600px;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+body.dark-mode .stars {
+    animation: twinkle 4s ease-in-out infinite;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 60px 80px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    z-index: 1;
     text-align: center;
+    width: 420px;
+    transition: background-color 1s ease, box-shadow 1s ease, transform 0.5s ease;
 }
 
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+h1 {
+    font-family: var(--font-serif);
+    font-size: 3.8rem;
+    margin: 0;
+    letter-spacing: -1.5px;
+    font-weight: 700;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    margin-top: 15px;
 }
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--toggle-bg);
-  -webkit-transition: .4s;
-  transition: .4s;
+.divider {
+    height: 60px;
+    width: 1px;
+    background-color: var(--divider-color);
+    margin: 40px auto;
+    transition: background-color 1s ease;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--toggle-circle);
-  -webkit-transition: .4s;
-  transition: .4s;
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
-input:checked + .slider {
-  background-color: var(--toggle-bg);
+.toggle-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--toggle-bg);
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 58px;
+    height: 30px;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg);
+    transition: 0.4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
 }
 
-.slider.round:before {
-  border-radius: 50%;
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--toggle-handle);
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(28px);
+}
+
+.icon {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    left: 8px; /* Start position aligned with handle */
+}
+
+.sun-icon {
+    color: #FFB300;
+}
+
+.moon-icon {
+    color: #90CAF9;
+    opacity: 0;
+}
+
+input:checked + .toggle-slider .sun-icon {
+    opacity: 0;
+}
+
+input:checked + .toggle-slider .moon-icon {
+    opacity: 1;
+}
+
+input:checked + .toggle-slider .icon {
+    transform: translateX(28px);
+}
+
+body.dark-mode .sphere {
+    transform: translate(-100px, 50px) scale(1.15);
 }
